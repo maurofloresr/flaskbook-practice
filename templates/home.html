@@ -1,0 +1,121 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="home-page">
+
+  <!-- ── TOP BAR ── -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-label">logged in as</span>
+      <span class="topbar-name">{{ name }}</span>
+      <span class="topbar-id">ID #{{ id }}</span>
+    </div>
+    <form action="/log_out" method="post">
+      <button class="btn-logout" type="submit">
+        <i data-lucide="log-out"></i>
+        Log out
+      </button>
+    </form>
+  </div>
+
+  <div class="home-grid">
+
+    <!-- ── MY SPORTS ── -->
+    <section class="panel">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <i data-lucide="trophy"></i>
+          <h2>My Sports</h2>
+        </div>
+        <span class="count-badge">{{ enrolled_sports | length }}</span>
+      </div>
+
+      {% if enrolled_sports %}
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th class="col-num">#</th>
+              <th>Sport</th>
+              <th class="col-action"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for sport in enrolled_sports %}
+            <tr class="data-row">
+              <td class="col-num muted">{{ loop.index }}</td>
+              <td class="sport-cell">
+                <i data-lucide="activity" class="sport-icon"></i>
+                {{ sport["sport"] }}
+              </td>
+              <td class="col-action">
+                <form action="/remove" method="post">
+                  <input type="hidden" name="sport_id" value="{{ sport['id'] }}">
+                  <button class="btn-remove" type="submit">remove</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <div class="empty-state">
+          <i data-lucide="circle-dashed"></i>
+          <p>No sports yet — add one below.</p>
+        </div>
+      {% endif %}
+    </section>
+
+    <!-- ── ADD SPORTS ── -->
+    <section class="panel">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <i data-lucide="plus-circle"></i>
+          <h2>Add a Sport</h2>
+        </div>
+      </div>
+
+      {% if unenrolled_sports %}
+        <div class="search-wrap">
+          <i data-lucide="search" class="search-icon"></i>
+          <input type="text" id="search" placeholder="Search sports..." autocomplete="off" />
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th class="col-num">#</th>
+              <th>Sport</th>
+              <th class="col-action"></th>
+            </tr>
+          </thead>
+          <tbody id="sport-list">
+            {% for sport in unenrolled_sports %}
+            <tr class="data-row">
+              <td class="col-num muted">{{ loop.index }}</td>
+              <td class="sport-cell">
+                <i data-lucide="activity" class="sport-icon"></i>
+                {{ sport["sport"] }}
+              </td>
+              <td class="col-action">
+                <form action="/add" method="post">
+                  <input type="hidden" name="sport_id" value="{{ sport['id'] }}">
+                  <button class="btn-add" type="submit">+ add</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <div class="empty-state">
+          <i data-lucide="check-circle-2"></i>
+          <p>You're enrolled in every sport!</p>
+        </div>
+      {% endif %}
+    </section>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlaskBook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+
+  <header class="navbar">
+    <a href="/" class="logo">
+      <i data-lucide="paw-print" class="logo-icon"></i>
+      <span class="logo-text">FlaskBook</span>
+    </a>
+    <nav class="nav-links">
+      <a href="/home">Home</a>
+    </nav>
+  </header>
+
+  <main>
+    {% block body %}{% endblock %}
+  </main>
+
+  <script>lucide.createIcons();</script>
+  <script src="{{ url_for('static', filename='search.js') }}"></script>
+</body>
+</html>

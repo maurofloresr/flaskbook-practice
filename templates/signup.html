@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="auth-page">
+
+  <!-- left panel — branding -->
+  <div class="auth-brand">
+    <div class="auth-brand-inner">
+      <div class="brand-tag">New here?</div>
+      <h1 class="brand-title">Join the<br>team.</h1>
+      <p class="brand-sub">Create your account and start registering for sports activities today.</p>
+      <div class="brand-note">
+        <i data-lucide="info" style="width:14px;height:14px;flex-shrink:0;margin-top:2px;"></i>
+        <span>Your Student ID will be assigned automatically. Save it — you'll need it to log in.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- right panel — form -->
+  <div class="auth-form-panel">
+    <div class="auth-form-wrap">
+      <h2 class="form-title">Create account</h2>
+      <p class="form-sub">Pick a name to register with.</p>
+
+      <form action="/signup" method="POST" class="auth-form">
+        <div class="field">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" placeholder="e.g. Mauro López" required autofocus />
+        </div>
+        <button type="submit" class="btn-primary">Create Account →</button>
+      </form>
+
+      <p class="auth-switch">Already have an account? <a href="/">Log in</a></p>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
